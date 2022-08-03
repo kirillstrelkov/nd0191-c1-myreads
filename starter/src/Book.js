@@ -1,6 +1,8 @@
 import Action from "./Action";
 
-function Book(props) {
+import PropTypes from "prop-types";
+
+const Book = (props) => {
   const authors = props.book.authors.join(", ");
 
   return (
@@ -24,6 +26,10 @@ function Book(props) {
       </div>
     </li>
   );
-}
+};
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+};
 
 export default Book;

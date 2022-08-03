@@ -1,4 +1,7 @@
-function Action(props) {
+import PropTypes from "prop-types";
+import React from "react";
+
+const Action = (props) => {
   const shelfIds = ["currentlyReading", "wantToRead", "read"];
   const shelfNaming = {
     currentlyReading: "Currently Reading",
@@ -6,21 +9,14 @@ function Action(props) {
     read: "Read",
   };
 
-  const options = shelfIds.map((shelfId) => {
-    const shelfName = shelfNaming[shelfId];
-    if (shelfId === props.shelf) {
-      return (
-        <option selected value={shelfId}>
-          {shelfName}
-        </option>
-      );
-    } else {
-      return <option value={shelfId}>{shelfName}</option>;
-    }
-  });
+  const options = shelfIds.map((shelfId) => (
+    <option value={shelfId} key={shelfId}>
+      {shelfNaming[shelfId]}
+    </option>
+  ));
 
   return (
-    <select>
+    <select defaultValue={props.shelf}>
       <option value="none" disabled>
         Move to...
       </option>
@@ -28,6 +24,10 @@ function Action(props) {
       <option value="none">None</option>
     </select>
   );
-}
+};
+
+Action.propTypes = {
+  shelf: PropTypes.string.isRequired,
+};
 
 export default Action;
