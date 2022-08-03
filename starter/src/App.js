@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "./App.css";
 import {getAll} from "./BooksAPI";
+import MyReads from "./MyReads";
+import Search from "./Search";
 import Shelf from "./Shelf";
 
 const App = () => {
@@ -37,40 +39,16 @@ const App = () => {
     getBooks();
   }, []);
 
+  const togglePage = () => {
+    setShowSearchpage(!showSearchPage);
+  };
+
   return (
     <div className="app">
       {showSearchPage ? (
-        <div className="search-books">
-          <div className="search-books-bar">
-            <a
-              className="close-search"
-              onClick={() => setShowSearchpage(!showSearchPage)}
-            >
-              Close
-            </a>
-            <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title, author, or ISBN"
-              />
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid"></ol>
-          </div>
-        </div>
+        <Search toggle={togglePage} />
       ) : (
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>{shelves}</div>
-          </div>
-          <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-          </div>
-        </div>
+        <MyReads toggle={togglePage} shelves={shelves} />
       )}
     </div>
   );

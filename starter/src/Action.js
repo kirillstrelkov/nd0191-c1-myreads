@@ -17,7 +17,7 @@ const Action = (props) => {
 
   return (
     <select defaultValue={props.shelf}>
-      <option value="none" disabled>
+      <option value="move" disabled>
         Move to...
       </option>
       {options}

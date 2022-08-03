@@ -3,7 +3,8 @@ import Action from "./Action";
 import PropTypes from "prop-types";
 
 const Book = (props) => {
-  const authors = props.book.authors.join(", ");
+  const authors = props.book.authors ? props.book.authors.join(", ") : "";
+  const image = props.book.imageLinks ? props.book.imageLinks.thumbnail : "";
 
   return (
     <li>
@@ -14,11 +15,11 @@ const Book = (props) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url("${props.book.imageLinks.thumbnail}")`,
+              backgroundImage: `url("${image}")`,
             }}
           ></div>
           <div className="book-shelf-changer">
-            <Action shelf={props.book.shelf} />
+            <Action shelf={props.book.shelf || "none"} />
           </div>
         </div>
         <div className="book-title">{props.book.title}</div>
