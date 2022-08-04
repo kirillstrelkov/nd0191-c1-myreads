@@ -3,7 +3,9 @@ import React from "react";
 import Book from "./Book";
 
 const Shelf = (props) => {
-  const books = props.books.map((book) => <Book key={book.id} book={book} />);
+  const books = props.books.map((book) => (
+    <Book key={book.id} book={book} move={props.move} />
+  ));
 
   return (
     <div className="bookshelf">
@@ -18,6 +20,7 @@ const Shelf = (props) => {
 Shelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
+  move: PropTypes.func.isRequired,
 };
 
 export default Shelf;

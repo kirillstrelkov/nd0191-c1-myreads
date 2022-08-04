@@ -19,12 +19,15 @@ const Search = (props) => {
     findBooks();
   };
 
-  const foundBooks = books.map((book) => <Book key={book.id} book={book} />);
+  const foundBooks = books.map((book) => {
+    book.shelf = props.bookIdsAndShelves[book.id];
+    return <Book key={book.id} book={book} move={props.move} />;
+  });
 
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={props.toggle}>
+        <a className="close-search" onClick={props.toggle} href="#toggle">
           Close
         </a>
         <div className="search-books-input-wrapper">
@@ -45,6 +48,8 @@ const Search = (props) => {
 
 Search.propTypes = {
   toggle: PropTypes.func.isRequired,
+  move: PropTypes.func.isRequired,
+  bookIdsAndShelves: PropTypes.object.isRequired,
 };
 
 export default Search;

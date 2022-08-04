@@ -1,22 +1,20 @@
 import PropTypes from "prop-types";
 import React from "react";
+import {SHELF_IDS, SHELF_MAPPING} from "./App";
 
 const Action = (props) => {
-  const shelfIds = ["currentlyReading", "wantToRead", "read"];
-  const shelfNaming = {
-    currentlyReading: "Currently Reading",
-    wantToRead: "Want to Read",
-    read: "Read",
+  const onChange = (e) => {
+    props.move(props.book, e.target.value);
   };
 
-  const options = shelfIds.map((shelfId) => (
+  const options = SHELF_IDS.map((shelfId) => (
     <option value={shelfId} key={shelfId}>
-      {shelfNaming[shelfId]}
+      {SHELF_MAPPING[shelfId]}
     </option>
   ));
 
   return (
-    <select defaultValue={props.shelf}>
+    <select defaultValue={props.book.shelf || "none"} onChange={onChange}>
       <option value="move" disabled>
         Move to...
       </option>
@@ -27,7 +25,8 @@ const Action = (props) => {
 };
 
 Action.propTypes = {
-  shelf: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
+  move: PropTypes.func.isRequired,
 };
 
 export default Action;
