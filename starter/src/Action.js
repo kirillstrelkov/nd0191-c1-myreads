@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import {SHELF_IDS, SHELF_MAPPING} from "./App";
 
-const Action = (props) => {
+const Action = ({book, onMove}) => {
   const onChange = (e) => {
-    props.move(props.book, e.target.value);
+    onMove(book, e.target.value);
   };
 
   const options = SHELF_IDS.map((shelfId) => (
@@ -14,7 +14,7 @@ const Action = (props) => {
   ));
 
   return (
-    <select defaultValue={props.book.shelf || "none"} onChange={onChange}>
+    <select defaultValue={book.shelf || "none"} onChange={onChange}>
       <option value="move" disabled>
         Move to...
       </option>
@@ -26,7 +26,7 @@ const Action = (props) => {
 
 Action.propTypes = {
   book: PropTypes.object.isRequired,
-  move: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
 };
 
 export default Action;

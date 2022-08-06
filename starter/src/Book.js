@@ -2,9 +2,9 @@ import Action from "./Action";
 
 import PropTypes from "prop-types";
 
-const Book = (props) => {
-  const authors = props.book.authors ? props.book.authors.join(", ") : "";
-  const image = props.book.imageLinks ? props.book.imageLinks.thumbnail : "";
+const Book = ({book, onMove}) => {
+  const authors = book.authors ? book.authors.join(", ") : "";
+  const image = book.imageLinks ? book.imageLinks.thumbnail : "";
 
   return (
     <li>
@@ -19,10 +19,10 @@ const Book = (props) => {
             }}
           ></div>
           <div className="book-shelf-changer">
-            <Action move={props.onMove} book={props.book} />
+            <Action onMove={onMove} book={book} />
           </div>
         </div>
-        <div className="book-title">{props.book.title}</div>
+        <div className="book-title">{book.title}</div>
         <div className="book-authors">{authors}</div>
       </div>
     </li>

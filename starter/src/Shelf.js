@@ -2,16 +2,16 @@ import PropTypes from "prop-types";
 import React from "react";
 import Book from "./Book";
 
-const Shelf = (props) => {
-  const books = props.books.map((book) => (
-    <Book key={book.id} book={book} onMove={props.onMove} />
+const Shelf = ({title, books, onMove}) => {
+  const booksView = books.map((book) => (
+    <Book key={book.id} book={book} onMove={onMove} />
   ));
 
   return (
     <div className="bookshelf">
-      <h2 className="bookshelf-title">{props.title}</h2>
+      <h2 className="bookshelf-title">{title}</h2>
       <div className="bookshelf-books">
-        <ol className="books-grid">{books}</ol>
+        <ol className="books-grid">{booksView}</ol>
       </div>
     </div>
   );

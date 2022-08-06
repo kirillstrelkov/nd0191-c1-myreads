@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import Book from "./Book";
 import * as BooksApi from "./BooksAPI";
 
-const Search = (props) => {
+const Search = ({onMove, bookIdsAndShelves}) => {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
 
@@ -21,8 +21,8 @@ const Search = (props) => {
   };
 
   const foundBooks = books.map((book) => {
-    book.shelf = props.bookIdsAndShelves[book.id];
-    return <Book key={book.id} book={book} onMove={props.onMove} />;
+    book.shelf = bookIdsAndShelves[book.id];
+    return <Book key={book.id} book={book} onMove={onMove} />;
   });
 
   return (
