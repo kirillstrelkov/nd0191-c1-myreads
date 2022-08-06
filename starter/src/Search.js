@@ -21,7 +21,9 @@ const Search = ({onMove, bookIdsAndShelves}) => {
   };
 
   const foundBooks = books.map((book) => {
-    book.shelf = bookIdsAndShelves[book.id];
+    if (!book.shelf) {
+      book.shelf = bookIdsAndShelves[book.id];
+    }
     return <Book key={book.id} book={book} onMove={onMove} />;
   });
 

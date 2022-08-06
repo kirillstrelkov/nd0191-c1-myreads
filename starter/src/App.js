@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 import "./App.css";
-import {getAll} from "./BooksAPI";
+import * as BooksAPI from "./BooksAPI";
 import MyReads from "./MyReads";
 import Search from "./Search";
 import Shelf from "./Shelf";
@@ -15,28 +15,16 @@ export const SHELF_MAPPING = {
 const App = () => {
   // states
   const [myBooks, setMyBooks] = useState([]);
+  const [updated, setUpdated] = useState(true);
 
   // actions
   const moveBook = (book, newShelf) => {
-    const bookId = book.id;
-    const bookIds = myBooks.map((book) => book.id);
-    let newBooks;
+    const updateBook = async () => {
+      await BooksAPI.update(book, newShelf);
+      setUpdated(true);
+    };
 
-    if (SHELF_IDS.includes(newShelf)) {
-      if (bookIds.includes(bookId)) {
-        newBooks = myBooks.map((book) => {
-          book.shelf = book.id === bookId ? newShelf : book.shelf;
-          return book;
-        });
-      } else {
-        book.shelf = newShelf;
-        newBooks = myBooks.concat([book]);
-      }
-    } else {
-      newBooks = myBooks.filter((book) => book.id !== bookId);
-    }
-
-    setMyBooks(newBooks);
+    updateBook();
   };
 
   // main
@@ -59,13 +47,16 @@ const App = () => {
 
   // effects
   useEffect(() => {
-    const getBooks = async () => {
-      const myBooks = await getAll();
-      setMyBooks(myBooks);
-    };
+    if (updated) {
+      const getBooks = async () => {
+        const myBooks = await BooksAPI.getAll();
+        setMyBooks(myBooks);
+        setUpdated(false);
+      };
 
-    getBooks();
-  }, []);
+      getBooks();
+    }
+  }, [updated]);
 
   return (
     <div className="app">
