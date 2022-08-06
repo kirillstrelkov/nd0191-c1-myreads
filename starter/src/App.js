@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
+import {Route, Routes} from "react-router-dom";
 import "./App.css";
 import {getAll} from "./BooksAPI";
 import MyReads from "./MyReads";
 import Search from "./Search";
 import Shelf from "./Shelf";
-
 export const SHELF_IDS = ["currentlyReading", "wantToRead", "read"];
 export const SHELF_MAPPING = {
   currentlyReading: "Currently Reading",
@@ -14,14 +14,9 @@ export const SHELF_MAPPING = {
 
 const App = () => {
   // states
-  const [showSearchPage, setShowSearchpage] = useState(false);
   const [myBooks, setMyBooks] = useState([]);
 
   // actions
-  const togglePage = () => {
-    setShowSearchpage(!showSearchPage);
-  };
-
   const moveBook = (book, newShelf) => {
     const bookId = book.id;
     const bookIds = myBooks.map((book) => book.id);
@@ -58,7 +53,7 @@ const App = () => {
       key={shelfId}
       title={SHELF_MAPPING[shelfId]}
       books={groupedBooks[shelfId]}
-      move={moveBook}
+      onMove={moveBook}
     />
   ));
 
@@ -74,15 +69,15 @@ const App = () => {
 
   return (
     <div className="app">
-      {showSearchPage ? (
-        <Search
-          toggle={togglePage}
-          move={moveBook}
-          bookIdsAndShelves={bookIdsAndShelves}
+      <Routes>
+        <Route exact path="/" element={<MyReads shelves={shelves} />} />
+        <Route
+          path="/search"
+          element={
+            <Search onMove={moveBook} bookIdsAndShelves={bookIdsAndShelves} />
+          }
         />
-      ) : (
-        <MyReads toggle={togglePage} shelves={shelves} />
-      )}
+      </Routes>
     </div>
   );
 };

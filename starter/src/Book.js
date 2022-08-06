@@ -19,7 +19,7 @@ const Book = (props) => {
             }}
           ></div>
           <div className="book-shelf-changer">
-            <Action move={props.move} book={props.book} />
+            <Action move={props.onMove} book={props.book} />
           </div>
         </div>
         <div className="book-title">{props.book.title}</div>
@@ -31,7 +31,7 @@ const Book = (props) => {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
-  move: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
 };
 
 export default Book;

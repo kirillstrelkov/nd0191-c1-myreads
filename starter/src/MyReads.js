@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import {Link} from "react-router-dom";
 
 const MyReads = (props) => {
   return (
@@ -11,16 +12,13 @@ const MyReads = (props) => {
         <div>{props.shelves}</div>
       </div>
       <div className="open-search">
-        <a onClick={props.toggle} href="#toggle">
-          Add a book
-        </a>
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   );
 };
 
 MyReads.propTypes = {
-  toggle: PropTypes.func.isRequired,
   shelves: PropTypes.array.isRequired,
 };
 

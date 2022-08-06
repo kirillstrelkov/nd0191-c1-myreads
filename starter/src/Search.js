@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import Book from "./Book";
 import * as BooksApi from "./BooksAPI";
 
@@ -21,15 +22,15 @@ const Search = (props) => {
 
   const foundBooks = books.map((book) => {
     book.shelf = props.bookIdsAndShelves[book.id];
-    return <Book key={book.id} book={book} move={props.move} />;
+    return <Book key={book.id} book={book} onMove={props.onMove} />;
   });
 
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={props.toggle} href="#toggle">
+        <Link className="close-search" to="/">
           Close
-        </a>
+        </Link>
         <div className="search-books-input-wrapper">
           <input
             type="text"
@@ -47,8 +48,7 @@ const Search = (props) => {
 };
 
 Search.propTypes = {
-  toggle: PropTypes.func.isRequired,
-  move: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
   bookIdsAndShelves: PropTypes.object.isRequired,
 };
 
